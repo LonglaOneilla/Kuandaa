@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuandaa/Screens/eventDetailPage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
 import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/palette.dart';
@@ -309,7 +310,11 @@ class _eventScreenState extends State<eventScreen> {
                           size: 30,
                         ),
                         onPressed: () {
-                          //Navigator.pop(context);
+                          Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EventDetailPage(event:event )));
+          
                         },
                       ),
                     ],
