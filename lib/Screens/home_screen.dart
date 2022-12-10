@@ -57,7 +57,7 @@ class _homeScreenState extends State<homeScreen> {
     return SafeArea(
       child: Scaffold(
         key: _globalKey,
-        backgroundColor: Palette.gris,
+        backgroundColor: Palette.grey,
         drawer: Drawer(
           child: ListView.builder(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),

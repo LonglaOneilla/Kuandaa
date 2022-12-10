@@ -2,19 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:kuandaa/Models/mobile_models/event_summary_model.dart';
 
 import 'package:kuandaa/Routes/route.dart' as route;
+import 'package:kuandaa/Screens/favorite.dart';
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatarWidget.dart';
 //import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
+// ignore: camel_case_types
 class iBoxPage extends StatefulWidget {
+  const iBoxPage({Key? key}) : super(key: key);
+
+  static final List<Widget> _menu = [
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        avatarWidget(
+          imageUrl: 'assets/images/Locko.jpg',
+          onClicked: () async {},
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Center(
+          child: Text(
+            'Adelaide',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: 2),
+          ),
+        ),
+        const Divider(
+          height: 30.0,
+          thickness: 1,
+          color: Colors.black,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+      ],
+    ),
+    const Text('Dashboard'),
+    const Text('My Events'),
+    const Text('Services Offered'),
+    const Text('Event Toolkit'),
+  ];
+
   @override
   iBoxPageState createState() => iBoxPageState();
 }
 
 // ignore: camel_case_types
 class iBoxPageState extends State<iBoxPage> {
+  // ignore: prefer_final_fields
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   final userName = 'Adelaide';
+  int _currentSelected = 1;
   List<ServiceSummary> services = [];
   List<EventSummary> eventList = [];
 
@@ -42,9 +82,6 @@ class iBoxPageState extends State<iBoxPage> {
           action: 'view details'),
     ];
   }
-
-  final BoxDecoration _customGrayDecoration =
-      const BoxDecoration(color: Color.fromARGB(44, 85, 83, 83));
 
   TableRow _buildEventTableRow(EventSummary item) {
     return TableRow(
@@ -159,93 +196,42 @@ class iBoxPageState extends State<iBoxPage> {
     return SafeArea(
       child: Scaffold(
         key: _globalKey,
-        backgroundColor: Palette.gris,
+        backgroundColor: Palette.grey,
         drawer: Drawer(
-            child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 40.0, 10.0, 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  avatarWidget(
-                    imageUrl: 'assets/images/Locko.jpg',
-                    onClicked: () async {},
+          child: ListView.builder(
+              padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+              itemCount: iBoxPage._menu.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  color: _currentSelected == index
+                      ? Colors.blueGrey
+                      : Colors.white,
+                  child: ListTile(
+                    title: iBoxPage._menu[index],
+                    dense: true,
+                    onTap: () {
+                      setState(() {
+                        _currentSelected = index;
+                        if (index == 1) {
+                          Navigator.of(context, rootNavigator: false).push(
+                            MaterialPageRoute(
+                                builder: (context) => const iBoxPage(),
+                                maintainState: false),
+                          );
+                        }
+                        if (index == 2) {
+                          Navigator.of(context, rootNavigator: false).push(
+                            MaterialPageRoute(
+                                builder: (context) => FavoritesPage(),
+                                maintainState: false),
+                          );
+                        }
+                      });
+                    },
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Text(
-                      userName,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          letterSpacing: 2),
-                    ),
-                  ),
-                  const Divider(
-                    height: 30.0,
-                    thickness: 1,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InkWell(
-                    onTap: (() {}),
-                    child: const Text(
-                      'DashBoard',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    onTap: (() {}),
-                    child: const Text(
-                      'My Events',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    onTap: (() {}),
-                    child: const Text(
-                      'Services Offered',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    onTap: (() {}),
-                    child: const Text(
-                      'Event Toolkit',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        )),
+                );
+              }),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(
