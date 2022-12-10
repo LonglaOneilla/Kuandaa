@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:kuandaa/Screens/eventDetailPage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
@@ -49,7 +50,7 @@ class eventScreen extends StatefulWidget {
 
 class _eventScreenState extends State<eventScreen> {
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  int _currentSelected = 0;
+  int _currentSelected = 2;
   final userName = 'Adelaide';
   final eventDetails = EventPreferences.myEvents;
 
@@ -97,7 +98,7 @@ class _eventScreenState extends State<eventScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(
-                left: 8.0, top: 0.0, right: 0.0, bottom: 0.0),
+                left: 8.0, top: 0.0, right: 0.0, bottom: 30.0),
             child: Column(
               children: [
                 Row(
@@ -242,8 +243,11 @@ class _eventScreenState extends State<eventScreen> {
                   ],
                 ),
                 SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
                   width: 500,
-                  height: 450,
+                  height: 480,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
@@ -268,7 +272,7 @@ class _eventScreenState extends State<eventScreen> {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0))),
       elevation: 5,
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.fromLTRB(10, 15, 10, 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -279,112 +283,109 @@ class _eventScreenState extends State<eventScreen> {
               children: [
                 Image.asset(
                   '${event.eventProfilImg}',
-                  height: 228,
+                  height: 250,
                   width: 383,
                   fit: BoxFit.fill,
                 ),
               ]),
           Padding(
-              padding:
-                  const EdgeInsets.only(left: 16.0, top: 10.0, right: 14.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '${event.name}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+            padding: const EdgeInsets.only(left: 16.0, top: 8.0, right: 14.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${event.name}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
-                      const SizedBox(
-                        height: 30,
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.pink,
+                        size: 30,
                       ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: Colors.pink,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => EventDetailPage(event:event )));
-          
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.calendar_month,
-                          color: Colors.black,
-                          size: 26,
-                        ),
-                        onPressed: () {
-                          //Navigator.pop(context);
-                        },
-                      ),
-                      Text(
-                        '${event.beginDate}',
-                        textAlign: TextAlign.start,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              )),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.location_pin,
-                  color: Colors.black,
-                  size: 26,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EventDetailPage(event: event)));
+                      },
+                    ),
+                  ],
                 ),
-                onPressed: () {
-                  null;
-                },
-              ),
-              Text(
-                '${event.lieu}',
-                // ignore: prefer_const_constructors
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.calendar_month,
+                        color: Colors.black,
+                        size: 26,
+                      ),
+                      onPressed: () {
+                        //Navigator.pop(context);
+                      },
+                    ),
+                    Text(
+                      '${event.beginDate}',
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.person_pin,
-                  color: Colors.black,
-                  size: 26,
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.location_pin,
+                        color: Colors.black,
+                        size: 26,
+                      ),
+                      onPressed: () {
+                        null;
+                      },
+                    ),
+                    Text(
+                      '${event.lieu}',
+                      // ignore: prefer_const_constructors
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: () {
-                  null;
-                },
-              ),
-              Text(
-                'By ${event.eventCreator}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.person_pin,
+                        color: Colors.black,
+                        size: 26,
+                      ),
+                      onPressed: () {
+                        null;
+                      },
+                    ),
+                    Text(
+                      'By ${event.eventCreator}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
