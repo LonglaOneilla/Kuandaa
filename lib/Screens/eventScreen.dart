@@ -293,7 +293,7 @@ class _eventScreenState extends State<eventScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${event.eventCreator}',
+                        '${event.name}',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
