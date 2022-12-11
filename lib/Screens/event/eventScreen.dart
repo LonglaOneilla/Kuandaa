@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:kuandaa/Screens/eventDetailPage.dart';
+import 'package:kuandaa/Screens/event/eventDetailPage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
 import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/palette.dart';
@@ -172,7 +172,7 @@ class _eventScreenState extends State<eventScreen> {
                   height: 10.0,
                 ),
                 const Text(
-                  'Find the Trending Providers',
+                  'Find the trending events',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 30,
@@ -222,7 +222,7 @@ class _eventScreenState extends State<eventScreen> {
                     const Padding(
                       padding: EdgeInsets.only(left: 10.0),
                       child: Text(
-                        'Popular Providers',
+                        'Popular events',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 30,

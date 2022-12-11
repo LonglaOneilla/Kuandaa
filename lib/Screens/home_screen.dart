@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kuandaa/Screens/eventScreen.dart';
+import 'package:kuandaa/Screens/event/eventScreen.dart';
 
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/Routes/route.dart' as route;

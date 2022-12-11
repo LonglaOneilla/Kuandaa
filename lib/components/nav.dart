@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kuandaa/Screens/favorite.dart';
+import 'package:kuandaa/Screens/ibox/favorite.dart';
 import 'package:kuandaa/Screens/homePage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
-import 'package:kuandaa/Screens/ibox.dart';
+import 'package:kuandaa/Screens/ibox/ibox.dart';
 import 'package:kuandaa/Screens/user_profile/profile.dart';
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/Routes/route.dart' as route;
