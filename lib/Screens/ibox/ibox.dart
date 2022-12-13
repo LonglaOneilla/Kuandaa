@@ -5,7 +5,9 @@ import 'package:kuandaa/Routes/route.dart' as route;
 import 'package:kuandaa/Screens/event/eventToolkit.dart';
 import 'package:kuandaa/Screens/ibox/favorite.dart';
 import 'package:kuandaa/Screens/ibox/services.dart';
+import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/palette.dart';
+import 'package:kuandaa/widgets/avatar.dart';
 import 'package:kuandaa/widgets/avatarWidget.dart';
 //import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -17,7 +19,7 @@ class iBoxPage extends StatefulWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        avatarWidget(
+        avatar(
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -247,7 +249,7 @@ class iBoxPageState extends State<iBoxPage> {
                         if (index == 4) {
                           Navigator.of(context, rootNavigator: false).push(
                             MaterialPageRoute(
-                                builder: (context) => const EventToolkitPage(),
+                                builder: (context) => EventToolkitPage(),
                                 maintainState: false),
                           );
                         }

@@ -7,10 +7,9 @@ import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatar.dart';
 
-// ignore: must_be_immutable
-class EventToolkitPage extends StatefulWidget {
-   EventProfile ? event;
-  EventToolkitPage({super.key,  this.event});
+class EditEventPage extends StatefulWidget {
+  EventProfile? event;
+  EditEventPage({super.key, this.event});
   static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,10 +63,10 @@ class EventToolkitPage extends StatefulWidget {
     'Feedbacks',
   ];
   @override
-  EventToolkitPageState createState() => EventToolkitPageState();
+  EditEventPageState createState() => EditEventPageState();
 }
 
-class EventToolkitPageState extends State<EventToolkitPage> {
+class EditEventPageState extends State<EditEventPage> {
   // ignore: prefer_final_fields
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   int _currentSelected = 1;
@@ -86,7 +85,7 @@ class EventToolkitPageState extends State<EventToolkitPage> {
         drawer: Drawer(
           child: ListView.builder(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-              itemCount: EventToolkitPage._menu.length,
+              itemCount: EditEventPage._menu.length,
               itemBuilder: (context, index) {
                 return Card(
                   color: _currentSelected == index
@@ -94,9 +93,9 @@ class EventToolkitPageState extends State<EventToolkitPage> {
                       : Colors.white,
                   child: ListTile(
                     title: index == 0
-                        ? EventToolkitPage._menu[index]
+                        ? EditEventPage._menu[index]
                         : Text(
-                            '${EventToolkitPage._menu[index]}',
+                            '${EditEventPage._menu[index]}',
                             style: TextStyle(
                               color: _currentSelected == index
                                   ? Colors.white
@@ -131,7 +130,7 @@ class EventToolkitPageState extends State<EventToolkitPage> {
                         if (index == 4) {
                           Navigator.of(context, rootNavigator: false).push(
                             MaterialPageRoute(
-                                builder: (context) => EventToolkitPage(),
+                                builder: (context) => EditEventPage(),
                                 maintainState: false),
                           );
                         }
@@ -179,15 +178,15 @@ class EventToolkitPageState extends State<EventToolkitPage> {
               child: Column(
                 children: [
                   Container(
-      padding: const EdgeInsets.only(left: 10.0),
-      height: 300,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('${widget.event!.eventProfilImg}'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    )
+                    padding: const EdgeInsets.only(left: 10.0),
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('${widget.event!.eventProfilImg}'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

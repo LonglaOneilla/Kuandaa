@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kuandaa/Screens/home.dart';
 import 'package:kuandaa/Screens/ibox/favorite.dart';
 import 'package:kuandaa/Screens/homePage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
@@ -135,9 +136,9 @@ class _navBarState extends State<navBar> {
 
   final PageController _pageController = PageController();
   final List<Widget> _screens = [
-    homeScreen(),
-    iBoxPage(),
-    FavoritesPage(),
+    Home(),
+    const iBoxPage(),
+    const FavoritesPage(),
     ProfilePage(),
   ];
 

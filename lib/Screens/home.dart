@@ -1,43 +1,19 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:kuandaa/Models/mobile_models/providers.dart';
 import 'package:kuandaa/Screens/event/eventDetailPage.dart';
+import 'package:kuandaa/Screens/event/eventScreen.dart';
+import 'package:kuandaa/Screens/homePage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
+import 'package:kuandaa/Screens/providerDetail.dart';
 import 'package:kuandaa/helpers/event_preference.dart';
+import 'package:kuandaa/helpers/provider_preferences.dart';
 import 'package:kuandaa/palette.dart';
-import 'package:kuandaa/widgets/avatar.dart';
-import 'package:kuandaa/widgets/avatarWidget.dart';
 
-class eventScreen extends StatefulWidget {
-  eventScreen({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  Home({Key? key}) : super(key: key);
 
   static final List _menu = [
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        avatar(
-          imageUrl: 'assets/images/Locko.jpg',
-          onClicked: () async {},
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        const Center(
-          child: Text(
-            'Adelaide',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: 2),
-          ),
-        ),
-        const Divider(
-          height: 30.0,
-          thickness: 1,
-          color: Colors.black,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
-    ),
+    'Home',
     'Provider Guide',
     'Event Guide',
     'About us',
@@ -46,41 +22,40 @@ class eventScreen extends StatefulWidget {
   ];
 
   @override
-  _eventScreenState createState() => _eventScreenState();
+  State<Home> createState() => _HomeState();
 }
 
-class _eventScreenState extends State<eventScreen> {
+class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  int _currentSelected = 2;
+  int _currentSelected = 0;
   final userName = 'Adelaide';
   final eventDetails = EventPreferences.myEvents;
+  final providers = providerPreference.provider;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         key: _globalKey,
-        backgroundColor: Palette.gris,
+        backgroundColor: Palette.grey,
         drawer: Drawer(
           child: ListView.builder(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-              itemCount: eventScreen._menu.length,
+              itemCount: Home._menu.length,
               itemBuilder: (context, index) {
                 return Card(
                   color: _currentSelected == index
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: index == 0
-                        ? eventScreen._menu[index]
-                        : Text(
-                            '${eventScreen._menu[index]}',
-                            style: TextStyle(
-                              color: _currentSelected == index
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                          ),
+                    title: Text(
+                      '${Home._menu[index]}',
+                      style: TextStyle(
+                        color: _currentSelected == index
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
                     dense: true,
                     onTap: () {
                       setState(() {
@@ -181,14 +156,6 @@ class _eventScreenState extends State<eventScreen> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                const Text(
-                  'Find the trending events',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
                 const SizedBox(
                   height: 10.0,
                 ),
@@ -215,7 +182,7 @@ class _eventScreenState extends State<eventScreen> {
                       icon: const Icon(
                         Icons.filter_alt,
                         color: Colors.black,
-                        size: 30,
+                        size: 24,
                       ),
                       onPressed: () {
                         Navigator.pop(context);
@@ -235,16 +202,16 @@ class _eventScreenState extends State<eventScreen> {
                         'Popular events',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 30,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     IconButton(
                       icon: const Icon(
-                        Icons.more_horiz,
+                        Icons.more_vert,
                         color: Colors.black,
-                        size: 30,
+                        size: 24,
                       ),
                       onPressed: () {
                         //Navigator.pop(context);
@@ -252,12 +219,12 @@ class _eventScreenState extends State<eventScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
                   width: 500,
-                  height: 480,
+                  height: 500,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
@@ -265,9 +232,55 @@ class _eventScreenState extends State<eventScreen> {
                         ...(eventDetails
                             .map((item) => _buildCard(context, item))
                             .toList()),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: const Divider(
+                            thickness: 1,
+                            color: Colors.black,
+                            height: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                'Popular Providers',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.more_horiz,
+                                color: Colors.black,
+                                size: 24,
+                              ),
+                              onPressed: () {
+                                //Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ...(providers
+                            .map((item) => _buildProviderCard(context, item))
+                            .toList()),
                       ],
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
               ],
             ),
@@ -291,11 +304,14 @@ class _eventScreenState extends State<eventScreen> {
               direction: Axis.horizontal,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  '${event.eventProfilImg}',
-                  height: 250,
-                  width: 383,
-                  fit: BoxFit.fill,
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                  child: Image.asset(
+                    '${event.eventProfilImg}',
+                    height: 250,
+                    width: 383,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ]),
           Padding(
@@ -388,6 +404,100 @@ class _eventScreenState extends State<eventScreen> {
                     Text(
                       'By ${event.eventCreator}',
                       style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProviderCard(context, EventProvider event) {
+    return Card(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25.0))),
+      elevation: 5,
+      margin: const EdgeInsets.fromLTRB(10, 15, 10, 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Flex(
+            direction: Axis.horizontal,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(25)),
+                child: Image.asset(
+                  '${event.imageUrl}',
+                  height: 250,
+                  width: 383,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 16.0, top: 8.0, right: 14.0, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${event.name}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.pink,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProviderDetailPage(provider: event)));
+                      },
+                    ),
+                  ],
+                ),
+                Text(
+                  '${event.type}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.location_pin,
+                        color: Colors.black,
+                        size: 26,
+                      ),
+                      onPressed: () {
+                        null;
+                      },
+                    ),
+                    Text(
+                      '${event.location}',
+                      // ignore: prefer_const_constructors
+                      style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                       ),

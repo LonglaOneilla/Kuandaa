@@ -3,6 +3,7 @@ import 'package:kuandaa/Screens/event/eventScreen.dart';
 
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/Routes/route.dart' as route;
+import 'package:kuandaa/widgets/avatar.dart';
 import 'package:kuandaa/widgets/avatarWidget.dart';
 
 class homeScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class homeScreen extends StatefulWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        avatarWidget(
+        avatar(
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),

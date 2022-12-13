@@ -7,6 +7,7 @@ import 'package:kuandaa/Screens/ibox/favorite.dart';
 
 import 'package:kuandaa/Screens/ibox/ibox.dart';
 import 'package:kuandaa/palette.dart';
+import 'package:kuandaa/widgets/avatar.dart';
 import 'package:kuandaa/widgets/avatarWidget.dart';
 //import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -18,7 +19,7 @@ class ServicesPage extends StatefulWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        avatarWidget(
+        avatar(
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -183,7 +184,7 @@ class ServicesPageState extends State<ServicesPage> {
                         if (index == 4) {
                           Navigator.of(context, rootNavigator: false).push(
                             MaterialPageRoute(
-                                builder: (context) => const EventToolkitPage(),
+                                builder: (context) => EventToolkitPage(),
                                 maintainState: false),
                           );
                         }
