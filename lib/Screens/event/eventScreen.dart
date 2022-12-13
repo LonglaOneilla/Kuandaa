@@ -9,7 +9,7 @@ import 'package:kuandaa/widgets/avatarWidget.dart';
 class eventScreen extends StatefulWidget {
   eventScreen({Key? key}) : super(key: key);
 
-  static final List<Widget> _menu = [
+  static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,11 +37,11 @@ class eventScreen extends StatefulWidget {
         ),
       ],
     ),
-    const Text('Provider Guide'),
-    const Text('Event Guide'),
-    const Text('About us'),
-    const Text('Contact us'),
-    const Text('Our Apps')
+    'Provider Guide',
+    'Event Guide',
+    'About us',
+    'Contact us',
+    'Our Apps'
   ];
 
   @override
@@ -70,7 +70,16 @@ class _eventScreenState extends State<eventScreen> {
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: eventScreen._menu[index],
+                    title: index == 0
+                        ? eventScreen._menu[index]
+                        : Text(
+                            '${eventScreen._menu[index]}',
+                            style: TextStyle(
+                              color: _currentSelected == index
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
                     dense: true,
                     onTap: () {
                       setState(() {

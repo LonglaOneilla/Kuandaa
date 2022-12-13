@@ -14,7 +14,7 @@ import 'package:kuandaa/widgets/avatarWidget.dart';
 class ServicesPage extends StatefulWidget {
   const ServicesPage({Key? key}) : super(key: key);
 
-  static final List<Widget> _menu = [
+  static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,10 +42,10 @@ class ServicesPage extends StatefulWidget {
         ),
       ],
     ),
-    const Text('Dashboard'),
-    const Text('My Events'),
-    const Text('Services Offered'),
-    const Text('Event Toolkit'),
+    'Dashboard',
+    'My Events',
+    'Services Offered',
+    'Event Toolkit',
   ];
 
   @override
@@ -145,7 +145,16 @@ class ServicesPageState extends State<ServicesPage> {
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: ServicesPage._menu[index],
+                    title: index == 0
+                        ? ServicesPage._menu[index]
+                        : Text(
+                            '${ServicesPage._menu[index]}',
+                            style: TextStyle(
+                              color: _currentSelected == index
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
                     dense: true,
                     onTap: () {
                       setState(() {

@@ -14,7 +14,7 @@ import 'package:kuandaa/widgets/avatarWidget.dart';
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({Key? key}) : super(key: key);
 
-  static final List<Widget> _menu = [
+  static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,10 +42,10 @@ class FavoritesPage extends StatefulWidget {
         ),
       ],
     ),
-    const Text('Dashboard'),
-    const Text('My Events'),
-    const Text('Services Offered'),
-    const Text('Event Toolkit'),
+    'Dashboard',
+    'My Events',
+    'Services Offered',
+    'Event Toolkit',
   ];
 
   @override
@@ -147,7 +147,16 @@ class FavoritesPageState extends State<FavoritesPage> {
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: FavoritesPage._menu[index],
+                    title: index == 0
+                        ? FavoritesPage._menu[index]
+                        : Text(
+                            '${FavoritesPage._menu[index]}',
+                            style: TextStyle(
+                              color: _currentSelected == index
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
                     dense: true,
                     onTap: () {
                       setState(() {
@@ -195,7 +204,7 @@ class FavoritesPageState extends State<FavoritesPage> {
               size: 30,
             ),
             onPressed: () {
-               _globalKey.currentState?.openDrawer();
+              _globalKey.currentState?.openDrawer();
             },
           ),
           shape: const RoundedRectangleBorder(
@@ -204,7 +213,6 @@ class FavoritesPageState extends State<FavoritesPage> {
                   bottomRight: Radius.circular(25.0))),
           centerTitle: true,
         ),
-       
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(

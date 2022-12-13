@@ -8,7 +8,7 @@ import 'package:kuandaa/widgets/avatarWidget.dart';
 class homeScreen extends StatefulWidget {
   homeScreen({Key? key}) : super(key: key);
 
-  static final List<Widget> _menu = [
+  static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,11 +36,11 @@ class homeScreen extends StatefulWidget {
         ),
       ],
     ),
-    Text('Provider Guide'),
-    Text('Event Guide'),
-    Text('About us'),
-    Text('Contact us'),
-    Text('Our Apps')
+    'Provider Guide',
+    'Event Guide',
+    'About us',
+    'Contact us',
+    'Our Apps'
   ];
 
   @override
@@ -68,7 +68,16 @@ class _homeScreenState extends State<homeScreen> {
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: homeScreen._menu[index],
+                    title: index == 0
+                        ? homeScreen._menu[index]
+                        : Text(
+                            '${homeScreen._menu[index]}',
+                            style: TextStyle(
+                              color: _currentSelected == index
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
                     dense: true,
                     onTap: () {
                       setState(() {

@@ -8,7 +8,7 @@ import 'package:kuandaa/widgets/avatarWidget.dart';
 
 class EventToolkitPage extends StatefulWidget {
   const EventToolkitPage({Key? key}) : super(key: key);
-  static final List<Widget> _menu = [
+  static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,10 +36,10 @@ class EventToolkitPage extends StatefulWidget {
         ),
       ],
     ),
-    const Text('Dashboard'),
-    const Text('My Events'),
-    const Text('Services Offered'),
-    const Text('Event Toolkit'),
+    'Dashboard',
+    'My Events',
+    'Services Offered',
+    'Event Toolkit',
   ];
   @override
   EventToolkitPageState createState() => EventToolkitPageState();
@@ -71,7 +71,16 @@ class EventToolkitPageState extends State<EventToolkitPage> {
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: EventToolkitPage._menu[index],
+                    title: index == 0
+                        ? EventToolkitPage._menu[index]
+                        : Text(
+                            '${EventToolkitPage._menu[index]}',
+                            style: TextStyle(
+                              color: _currentSelected == index
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
                     dense: true,
                     onTap: () {
                       setState(() {

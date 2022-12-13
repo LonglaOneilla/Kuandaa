@@ -139,7 +139,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
         },
         child: Text(
           value,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          style: TextStyle(
+              color: _currentSelected == index ? Colors.white : Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 14),
         ),
       ));
 

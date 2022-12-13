@@ -13,7 +13,7 @@ import 'package:kuandaa/widgets/avatarWidget.dart';
 class iBoxPage extends StatefulWidget {
   const iBoxPage({Key? key}) : super(key: key);
 
-  static final List<Widget> _menu = [
+  static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,10 +41,10 @@ class iBoxPage extends StatefulWidget {
         ),
       ],
     ),
-    const Text('Dashboard'),
-    const Text('My Events'),
-    const Text('Services Offered'),
-    const Text('Event Toolkit'),
+    'Dashboard',
+    'My Events',
+    'Services Offered',
+    'Event Toolkit',
   ];
 
   @override
@@ -209,7 +209,16 @@ class iBoxPageState extends State<iBoxPage> {
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: iBoxPage._menu[index],
+                    title: index == 0
+                        ? iBoxPage._menu[index]
+                        : Text(
+                            '${iBoxPage._menu[index]}',
+                            style: TextStyle(
+                              color: _currentSelected == index
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
                     dense: true,
                     onTap: () {
                       setState(() {
