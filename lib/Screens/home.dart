@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:kuandaa/Models/mobile_models/providers.dart';
 import 'package:kuandaa/Screens/event/eventDetailPage.dart';
 import 'package:kuandaa/Screens/event/eventScreen.dart';
-import 'package:kuandaa/Screens/homePage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
 import 'package:kuandaa/Screens/providerDetail.dart';
 import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/helpers/provider_preferences.dart';
 import 'package:kuandaa/palette.dart';
+import 'package:kuandaa/widgets/filter.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -31,6 +31,8 @@ class _HomeState extends State<Home> {
   final userName = 'Adelaide';
   final eventDetails = EventPreferences.myEvents;
   final providers = providerPreference.provider;
+  bool providerFilter = false;
+  bool eventFilter = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ class _HomeState extends State<Home> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(
-                left: 8.0, top: 0.0, right: 0.0, bottom: 30.0),
+                left: 8.0, top: 0.0, right: 0.0, bottom: 10.0),
             child: Column(
               children: [
                 Row(
@@ -180,12 +182,12 @@ class _HomeState extends State<Home> {
                     ),
                     IconButton(
                       icon: const Icon(
-                        Icons.filter_alt,
+                        Icons.filter_list_alt,
                         color: Colors.black,
                         size: 24,
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        //Navigator.pop(context);
                       },
                     ),
                   ],
@@ -209,32 +211,39 @@ class _HomeState extends State<Home> {
                     ),
                     IconButton(
                       icon: const Icon(
-                        Icons.more_vert,
+                        Icons.more_horiz,
                         color: Colors.black,
                         size: 24,
                       ),
                       onPressed: () {
-                        //Navigator.pop(context);
+                        setState(() {
+                          eventFilter = true;
+                          //print(eventFilter);
+                        });
                       },
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                buildFilter(context, 'event'),
                 SizedBox(
-                  width: 500,
-                  height: 500,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
                       children: [
-                        ...(eventDetails
-                            .map((item) => _buildCard(context, item))
-                            .toList()),
-                        Padding(
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ...(eventDetails
+                                  .map((item) => _buildCard(context, item))
+                                  .toList()),
+                            ],
+                          ),
+                        ),
+                        const Padding(
                           padding: EdgeInsets.all(10),
-                          child: const Divider(
+                          child: Divider(
                             thickness: 1,
                             color: Colors.black,
                             height: 20,
@@ -264,17 +273,26 @@ class _HomeState extends State<Home> {
                                 size: 24,
                               ),
                               onPressed: () {
-                                //Navigator.pop(context);
+                                setState(() {
+                                  providerFilter = true;
+                                });
                               },
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        ...(providers
-                            .map((item) => _buildProviderCard(context, item))
-                            .toList()),
+                        buildFilter(context, 'provider'),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ...(providers
+                                  .map((item) =>
+                                      _buildProviderCard(context, item))
+                                  .toList()),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -295,7 +313,7 @@ class _HomeState extends State<Home> {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0))),
       elevation: 5,
-      margin: const EdgeInsets.fromLTRB(10, 15, 10, 30),
+      margin: const EdgeInsets.fromLTRB(10, 15, 10, 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -476,7 +494,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 Text(
-                  '${event.type}',
+                  '${event.category}',
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,

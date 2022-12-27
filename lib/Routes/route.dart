@@ -6,8 +6,6 @@ import 'package:kuandaa/Screens/user_profile/profile.dart';
 import 'package:kuandaa/Screens/user_profile/securityProfile.dart';
 import 'package:kuandaa/components/nav.dart';
 
-import 'package:kuandaa/Screens/landingPage.dart';
-import 'package:kuandaa/Screens/homePage.dart';
 
 const String onBoarding = 'landing page';
 const String Home = 'home page';

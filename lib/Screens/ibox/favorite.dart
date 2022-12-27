@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kuandaa/Models/mobile_models/event_summary_model.dart';
-
-import 'package:kuandaa/Routes/route.dart' as route;
 import 'package:kuandaa/Screens/event/eventToolkit.dart';
-import 'package:kuandaa/Screens/ibox/favorite.dart';
 import 'package:kuandaa/Screens/ibox/ibox.dart';
 import 'package:kuandaa/Screens/ibox/services.dart';
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatar.dart';
-import 'package:kuandaa/widgets/avatarWidget.dart';
 //import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 // ignore: camel_case_types
@@ -20,6 +16,7 @@ class FavoritesPage extends StatefulWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         avatar(
+          size: 100,
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -60,76 +57,34 @@ class FavoritesPageState extends State<FavoritesPage> {
   final userName = 'Adelaide';
   int _currentSelected = 2;
   List<ServiceSummary> services = [];
-  List<EventSummary> eventList = [];
+  List<EventsSummary> eventList = [];
 
   @override
   void initState() {
     super.initState();
   }
 
-  List<EventSummary> getEvents() {
+  List<EventsSummary> getEvents() {
     return [
-      EventSummary(
+      EventsSummary(
           name: 'Fair Conference',
           category: 'Conference',
           status: 'active',
-          action: 'view details'),
-      EventSummary(
+          action: 'view details',
+          image: 'assets/images/yupevent.jpg'),
+      EventsSummary(
           name: 'CA after party',
           category: 'Party',
           status: 'active',
-          action: 'view details'),
-      EventSummary(
+          action: 'view details',
+          image: 'assets/images/party.jpg'),
+      EventsSummary(
           name: 'Megrave Party',
           category: 'Party',
           status: 'completed',
-          action: 'view details'),
+          action: 'view details',
+          image: 'assets/images/time.jpg'),
     ];
-  }
-
-  TableRow _buildEventTableRow(EventSummary item) {
-    return TableRow(
-        key: ValueKey(item.name),
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 192, 189, 189),
-        ),
-        children: [
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Center(
-                child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text('${item.name}'),
-            )),
-          ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text('${item.category}'),
-            ),
-          ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                '${item.status}',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          TableCell(
-            verticalAlignment: TableCellVerticalAlignment.middle,
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                '${item.action}',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ]);
   }
 
   @override
@@ -186,7 +141,7 @@ class FavoritesPageState extends State<FavoritesPage> {
                         if (index == 4) {
                           Navigator.of(context, rootNavigator: false).push(
                             MaterialPageRoute(
-                                builder: (context) => EventToolkitPage(),
+                                builder: (context) => const EventToolkitPage(),
                                 maintainState: false),
                           );
                         }
@@ -256,70 +211,16 @@ class FavoritesPageState extends State<FavoritesPage> {
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(5, 20, 5, 10),
-                              child: Table(
-                                defaultVerticalAlignment:
-                                    TableCellVerticalAlignment.middle,
-                                border:
-                                    const TableBorder(left: BorderSide.none),
-                                children: [
-                                  const TableRow(
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(240, 66, 65, 65),
-                                    ),
-                                    children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Name',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Category',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Status',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Action',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  ...(getEvents().map(
-                                      (item) => _buildEventTableRow(item))),
-                                ],
+                              child: Container(
+                                color: Palette.grey,
+                                child: Column(
+                                  children: [
+                                    ...(getEvents()
+                                        .map((item) =>
+                                            buildEventToolkit(context, item))
+                                        .toList()),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -336,6 +237,63 @@ class FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+  Widget buildEventToolkit(BuildContext context, EventsSummary card) {
+    return Card(
+      elevation: 10,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              avatar(
+                  imageUrl: '${card.image}', onClicked: () async {}, size: 70),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${card.name}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Palette.bleu),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${card.category}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${card.status}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.remove_red_eye,
+                  color: Palette.pink,
+                  size: 26,
+                ),
+              )
+            ],
+          )
+        ]),
+      ),
+    );
+  }
   //_createDataTable() {}
 
 }

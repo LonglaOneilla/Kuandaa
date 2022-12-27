@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: file_names
 
-import 'package:kuandaa/Routes/route.dart' as route;
+import 'package:flutter/material.dart';
 import 'package:kuandaa/Screens/user_profile/profile.dart';
 import 'package:kuandaa/Screens/user_profile/securityProfile.dart';
 import 'package:kuandaa/helpers/user_preferences.dart';
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatarWidget.dart';
 import 'package:kuandaa/widgets/textFieldWidget.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
+
   @override
   EditProfilePageState createState() => EditProfilePageState();
 }

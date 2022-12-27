@@ -1,8 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 import '../../palette.dart';
 
 class SignUpForm extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -32,7 +35,7 @@ class SignUpState extends State<SignUp> {
       appBar: AppBar(
         title: Center(
           child: Padding(
-            padding: EdgeInsets.only(left: 135.0),
+            padding: const EdgeInsets.only(left: 135.0),
             child: Row(
               children: [
                 Image.asset(
@@ -40,14 +43,14 @@ class SignUpState extends State<SignUp> {
                   height: 40,
                   width: 40,
                 ),
-                Text("uandaa"),
+                const Text("uandaa"),
               ],
             ),
           ),
         ),
         automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         
 
       ),

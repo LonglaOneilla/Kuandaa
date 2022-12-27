@@ -1,25 +1,34 @@
-class EventSummary {
+class EventsSummary {
   int? totalEvent;
   String? name;
   String? category;
   String? status;
   String? action;
+  String? image;
+  String? beginDate;
+    String? endDate;
 
-  EventSummary({
+  EventsSummary({
     this.action,
     this.category,
     this.name,
     this.status,
     this.totalEvent,
+    this.image,
+    this.beginDate,
+    this.endDate,
   });
 
-  factory EventSummary.fromJSON(Map<String, dynamic> json) {
-    return EventSummary(
+  factory EventsSummary.fromJSON(Map<String, dynamic> json) {
+    return EventsSummary(
       name: json['name'],
       category: json['category'],
       status: json['status'],
       action: json['action'],
-      totalEvent: json['totalEvent']
+      totalEvent: json['totalEvent'],
+      image: json['image'],
+      beginDate: json['beginDate'],
+      endDate: json['endDate']
     );
   }
 }
@@ -30,9 +39,11 @@ class ServiceSummary {
   String? category;
   String? status;
   String? action;
+  String? image;
+
 
   ServiceSummary(
-      {this.action, this.category, this.name, this.status, this.totalServices});
+      {this.action, this.category, this.name, this.status, this.totalServices,this.image});
 
 factory ServiceSummary.fromJSON(Map<String, dynamic> json) {
     return ServiceSummary(
@@ -40,7 +51,8 @@ factory ServiceSummary.fromJSON(Map<String, dynamic> json) {
       category: json['category'],
       status: json['status'],
       action: json['action'],
-      totalServices: json['totalServices']
+      totalServices: json['totalServices'],
+      image: json['image']
     );
   }
 

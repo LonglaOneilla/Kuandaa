@@ -1,10 +1,10 @@
+// ignore_for_file: camel_case_types, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:kuandaa/Screens/event/eventScreen.dart';
 
 import 'package:kuandaa/palette.dart';
-import 'package:kuandaa/Routes/route.dart' as route;
 import 'package:kuandaa/widgets/avatar.dart';
-import 'package:kuandaa/widgets/avatarWidget.dart';
 
 class homeScreen extends StatefulWidget {
   homeScreen({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class homeScreen extends StatefulWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         avatar(
+          size: 100,
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -285,7 +286,7 @@ class _homeScreenState extends State<homeScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
+                                          const Text(
                                             'Daphne Njie',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -307,7 +308,7 @@ class _homeScreenState extends State<homeScreen> {
                                           ),
                                         ],
                                       ),
-                                      Text(
+                                      const Text(
                                         'Artist',
                                         textAlign: TextAlign.start,
                                         style: TextStyle(

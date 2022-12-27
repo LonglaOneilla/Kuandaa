@@ -5,10 +5,8 @@ import 'package:kuandaa/Routes/route.dart' as route;
 import 'package:kuandaa/Screens/event/eventToolkit.dart';
 import 'package:kuandaa/Screens/ibox/favorite.dart';
 import 'package:kuandaa/Screens/ibox/services.dart';
-import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatar.dart';
-import 'package:kuandaa/widgets/avatarWidget.dart';
 //import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 // ignore: camel_case_types
@@ -20,6 +18,7 @@ class iBoxPage extends StatefulWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         avatar(
+          size: 100,
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -60,26 +59,26 @@ class iBoxPageState extends State<iBoxPage> {
   final userName = 'Adelaide';
   int _currentSelected = 1;
   List<ServiceSummary> services = [];
-  List<EventSummary> eventList = [];
+  List<EventsSummary> eventList = [];
 
   @override
   void initState() {
     super.initState();
   }
 
-  List<EventSummary> getEvents() {
+  List<EventsSummary> getEvents() {
     return [
-      EventSummary(
+      EventsSummary(
           name: 'Fair Conference',
           category: 'Conference',
           status: 'active',
           action: 'view details'),
-      EventSummary(
+      EventsSummary(
           name: 'CA after party',
           category: 'Party',
           status: 'active',
           action: 'view details'),
-      EventSummary(
+      EventsSummary(
           name: 'Megrave Party',
           category: 'Party',
           status: 'completed',
@@ -87,7 +86,7 @@ class iBoxPageState extends State<iBoxPage> {
     ];
   }
 
-  TableRow _buildEventTableRow(EventSummary item) {
+  TableRow _buildEventTableRow(EventsSummary item) {
     return TableRow(
         key: ValueKey(item.name),
         decoration: const BoxDecoration(

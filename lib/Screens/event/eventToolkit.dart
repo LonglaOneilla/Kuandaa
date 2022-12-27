@@ -1,22 +1,24 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
+import 'package:kuandaa/Models/mobile_models/event_summary_model.dart';
+import 'package:kuandaa/Screens/event/editEvent.dart';
 import 'package:kuandaa/Screens/ibox/favorite.dart';
 import 'package:kuandaa/Screens/ibox/ibox.dart';
 import 'package:kuandaa/Screens/ibox/services.dart';
-import 'package:kuandaa/helpers/event_preference.dart';
+import 'package:kuandaa/helpers/editEventPreference.dart';
 
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatar.dart';
 
 // ignore: must_be_immutable
 class EventToolkitPage extends StatefulWidget {
-   EventProfile ? event;
-  EventToolkitPage({super.key,  this.event});
   static final List _menu = [
     Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         avatar(
+          size: 100,
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -35,34 +37,18 @@ class EventToolkitPage extends StatefulWidget {
           thickness: 1,
           color: Colors.black,
         ),
-        Padding(
-          padding: EdgeInsets.all(10),
-          child: Text(
-            'Event toolkit',
-            style: TextStyle(
-                color: Palette.pink[800],
-                letterSpacing: 2.0,
-                fontSize: 22,
-                fontWeight: FontWeight.w600),
-          ),
+        const SizedBox(
+          height: 10,
         ),
       ],
     ),
-    'Basic Info',
-    'Project Team',
-    'Line Up',
-    'Budget & Checklist ',
-    'Retro Planning',
-    'Event Flow ',
-    'Purchase',
-    'Report ',
-    '2D - Plan',
-    'Gift',
-    'Invitation',
-    'Ticketing',
-    'Team & game',
-    'Feedbacks',
+    'Dashboard',
+    'My Events',
+    'Services Offered',
+    'Event Toolkit',
   ];
+
+  const EventToolkitPage({super.key});
   @override
   EventToolkitPageState createState() => EventToolkitPageState();
 }
@@ -70,12 +56,32 @@ class EventToolkitPage extends StatefulWidget {
 class EventToolkitPageState extends State<EventToolkitPage> {
   // ignore: prefer_final_fields
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  int _currentSelected = 1;
+  int _currentSelected = 4;
+  final summary = EventSummaryPreference.mySummary;
+  List<ServiceSummary> services = [];
 
   @override
   void initState() {
     super.initState();
   }
+
+  List<ServiceSummary> getServices = [
+    ServiceSummary(
+        name: 'Margo Club',
+        category: 'venue',
+        status: 'unpublished',
+        action: 'view details'),
+    ServiceSummary(
+        name: 'La Falaise',
+        category: 'venue',
+        status: 'unpublished',
+        action: 'view details'),
+    ServiceSummary(
+        name: 'Mawa Hotel',
+        category: 'venue',
+        status: 'unpublished',
+        action: 'view details'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -142,15 +148,15 @@ class EventToolkitPageState extends State<EventToolkitPage> {
               }),
         ),
         appBar: AppBar(
-          title: const Text("Personal Info"),
+          title: const Text("Event Toolkit"),
           leading: IconButton(
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.menu,
               color: Colors.white,
               size: 30,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              _globalKey.currentState?.openDrawer();
             },
           ),
           shape: const RoundedRectangleBorder(
@@ -158,41 +164,87 @@ class EventToolkitPageState extends State<EventToolkitPage> {
                   bottomLeft: Radius.circular(25.0),
                   bottomRight: Radius.circular(25.0))),
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 30,
-              ),
-              onPressed: () {
-                _globalKey.currentState?.openDrawer();
-              },
-            ),
-          ],
         ),
         body: Center(
           child: Padding(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(25),
             child: Container(
               color: Palette.grey,
               child: Column(
                 children: [
-                  Container(
-      padding: const EdgeInsets.only(left: 10.0),
-      height: 300,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('${widget.event!.eventProfilImg}'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    )
+                  ...(summary
+                      .map((item) => buildEventToolkit(context, item))
+                      .toList()),
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildEventToolkit(BuildContext context, EventSummary event) {
+    return Card(
+      elevation: 10,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              avatar(
+                  imageUrl: '${event.image}', onClicked: () async {}, size: 70),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${event.name}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Palette.bleu),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${event.category}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${event.status}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: false)
+                      .push(MaterialPageRoute(
+                          builder: (context) => EditEventPage(
+                                event: event,
+                              ),
+                          maintainState: false));
+                },
+                icon: Icon(
+                  Icons.edit,
+                  color: Palette.pink,
+                  size: 26,
+                ),
+              )
+            ],
+          )
+        ]),
       ),
     );
   }

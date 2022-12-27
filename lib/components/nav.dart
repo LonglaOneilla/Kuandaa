@@ -1,15 +1,15 @@
+// ignore_for_file: camel_case_types, unused_field, library_private_types_in_public_api
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kuandaa/Screens/home.dart';
 import 'package:kuandaa/Screens/ibox/favorite.dart';
-import 'package:kuandaa/Screens/homePage.dart';
-import 'package:kuandaa/Screens/home_screen.dart';
 import 'package:kuandaa/Screens/ibox/ibox.dart';
 import 'package:kuandaa/Screens/user_profile/profile.dart';
 import 'package:kuandaa/palette.dart';
-import 'package:kuandaa/Routes/route.dart' as route;
 
 class navBar extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   navBar({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class navBar extends StatefulWidget {
 }
 
 class _navBarState extends State<navBar> {
-  int _selectedIndex = 0;
+  /*int _selectedIndex = 0;
   void _onPageChanged(int index) {
     _selectedIndex = index;
   }
@@ -131,7 +131,7 @@ class _navBarState extends State<navBar> {
         });
     }
   }
-
+*/
   //final ScrollController _homeController = ScrollController();
 
   final PageController _pageController = PageController();

@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:kuandaa/Models/mobile_models/event_summary_model.dart';
+// ignore_for_file: unused_element
 
-import 'package:kuandaa/Routes/route.dart' as route;
+import 'package:flutter/material.dart';
+import 'package:kuandaa/Models/mobile_models/event_summary_model.dart'; 
 import 'package:kuandaa/Screens/event/eventToolkit.dart';
 import 'package:kuandaa/Screens/ibox/favorite.dart';
 
 import 'package:kuandaa/Screens/ibox/ibox.dart';
 import 'package:kuandaa/palette.dart';
-import 'package:kuandaa/widgets/avatar.dart';
-import 'package:kuandaa/widgets/avatarWidget.dart';
+import 'package:kuandaa/widgets/avatar.dart'; 
 //import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 // ignore: camel_case_types
@@ -20,6 +19,7 @@ class ServicesPage extends StatefulWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         avatar(
+          size: 100,
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -60,7 +60,7 @@ class ServicesPageState extends State<ServicesPage> {
   final userName = 'Adelaide';
   int _currentSelected = 3;
   List<ServiceSummary> services = [];
-  List<EventSummary> eventList = [];
+  List<EventsSummary> eventList = [];
 
   @override
   void initState() {
@@ -184,7 +184,7 @@ class ServicesPageState extends State<ServicesPage> {
                         if (index == 4) {
                           Navigator.of(context, rootNavigator: false).push(
                             MaterialPageRoute(
-                                builder: (context) => EventToolkitPage(),
+                                builder: (context) => const EventToolkitPage(),
                                 maintainState: false),
                           );
                         }
@@ -254,70 +254,16 @@ class ServicesPageState extends State<ServicesPage> {
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(5, 20, 5, 10),
-                              child: Table(
-                                defaultVerticalAlignment:
-                                    TableCellVerticalAlignment.middle,
-                                border:
-                                    const TableBorder(left: BorderSide.none),
-                                children: [
-                                  const TableRow(
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(240, 66, 65, 65),
-                                    ),
-                                    children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Name',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Category',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Status',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Text(
-                                            'Action',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  ...(getServices.map(
-                                      (item) => _buildServiceTableRow(item))),
-                                ],
+                              child: Container(
+                                color: Palette.grey,
+                                child: Column(
+                                  children: [
+                                    ...(getServices
+                                        .map((item) =>
+                                            buildEventToolkit(context, item))
+                                        .toList()),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -330,6 +276,60 @@ class ServicesPageState extends State<ServicesPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildEventToolkit(BuildContext context, ServiceSummary card) {
+    return Card(
+      elevation: 10,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${card.name}',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Palette.bleu),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${card.category}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${card.status}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.remove_red_eye,
+                  color: Palette.pink,
+                  size: 26,
+                ),
+              )
+            ],
+          )
+        ]),
       ),
     );
   }

@@ -1,18 +1,17 @@
-
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 import 'package:kuandaa/Screens/event/eventToolkit.dart';
-import 'package:kuandaa/Screens/event/projectTeam.dart';
 import 'package:kuandaa/Screens/ibox/services.dart';
 import 'package:kuandaa/helpers/editEventPreference.dart';
+
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatar.dart';
 import 'package:kuandaa/widgets/textFieldWidget.dart';
 
-class EditEventPage extends StatefulWidget {
+class ProjectTeamPage extends StatefulWidget {
   final EventSummary event;
-  const EditEventPage({super.key, required this.event});
+  const ProjectTeamPage({super.key, required this.event});
   static final List _menu = [
     Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,13 +56,13 @@ class EditEventPage extends StatefulWidget {
     'Feedbacks',
   ];
   @override
-  EditEventPageState createState() => EditEventPageState();
+  ProjectTeamPageState createState() => ProjectTeamPageState();
 }
 
-class EditEventPageState extends State<EditEventPage> {
+class ProjectTeamPageState extends State<ProjectTeamPage> {
   // ignore: prefer_final_fields
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  int _currentSelected = 2;
+  int _currentSelected = 1;
 
   final summary = EventSummaryPreference.mySummary;
 
@@ -81,17 +80,17 @@ class EditEventPageState extends State<EditEventPage> {
         drawer: Drawer(
           child: ListView.builder(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-              itemCount: EditEventPage._menu.length,
+              itemCount: ProjectTeamPage._menu.length,
               itemBuilder: (context, index) {
                 return Card(
                   color: _currentSelected == index
                       ? Colors.blueGrey
                       : Colors.white,
                   child: ListTile(
-                    title: index == 0
-                        ? EditEventPage._menu[index]
+                    title: index == 0 || index == 1
+                        ? ProjectTeamPage._menu[index]
                         : Text(
-                            '${EditEventPage._menu[index]}',
+                            '${ProjectTeamPage._menu[index]}',
                             style: TextStyle(
                               color: _currentSelected == index
                                   ? Colors.white
@@ -113,7 +112,7 @@ class EditEventPageState extends State<EditEventPage> {
                           Navigator.of(context, rootNavigator: false).push(
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    EditEventPage(event: widget.event),
+                                    ProjectTeamPage(event: widget.event),
                                 maintainState: false),
                           );
                         }
@@ -286,29 +285,6 @@ class EditEventPageState extends State<EditEventPage> {
           label: 'Email', text: '${event.email}', onChanged: (email) {}),
       const SizedBox(
         height: 24.0,
-      ),
-      Center(
-        child: ElevatedButton(
-          onPressed: () => {
-            Navigator.of(context, rootNavigator: false).push(
-              MaterialPageRoute(
-                  builder: (context) => const EventToolkitPage(),
-                  maintainState: false),
-            ),
-          },
-          style: ElevatedButton.styleFrom(
-              //foregroundColor:Palette.pink,
-              backgroundColor: Palette.pink),
-          child: const Text(
-            'Save',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-            ),
-          ),
-        ),
       ),
     ]);
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/palette.dart';

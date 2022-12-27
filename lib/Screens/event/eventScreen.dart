@@ -1,11 +1,13 @@
+// ignore: duplicate_ignore
 // ignore: file_names
+// ignore_for_file: prefer_const_constructors_in_immutables, camel_case_types, file_names, library_private_types_in_public_api, prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:kuandaa/Screens/event/eventDetailPage.dart';
 import 'package:kuandaa/Screens/home_screen.dart';
 import 'package:kuandaa/helpers/event_preference.dart';
 import 'package:kuandaa/palette.dart';
 import 'package:kuandaa/widgets/avatar.dart';
-import 'package:kuandaa/widgets/avatarWidget.dart';
 
 class eventScreen extends StatefulWidget {
   eventScreen({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class eventScreen extends StatefulWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         avatar(
+          size: 100,
           imageUrl: 'assets/images/Locko.jpg',
           onClicked: () async {},
         ),
@@ -252,7 +255,7 @@ class _eventScreenState extends State<eventScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
